@@ -1,139 +1,52 @@
-# junit5-migration-gradle
+# JAVA Tutorial
 
-The `junit5-migration-gradle` project demonstrates how to execute tests based on JUnit 5
-using Gradle. In addition, it showcases that existing JUnit 4 based tests can be executed
-in the same test suite as JUnit Jupiter based tests or any other tests supported on
-the JUnit Platform.
+Welcome to the JAVA tutorial readme. This project is going to get you started on the basics of JAVA and even some fun projects. 
 
-This sample project does not aim to demonstrate how to use the JUnit Jupiter APIs.
-For detailed information on the JUnit Jupiter programming and extension models,
-please consult the [User Guide](http://junit.org/junit5/docs/current/user-guide/).
+## Getting Started 
 
-## Enabling the JUnit Platform
+To start with you will need to install visual studio code, java and pull down the project.
 
-To use the JUnit Platform with Gradle, you need to configure `build.gradle` as follows.
+### 1. Installing Visual Studio Code 
 
-```groovy
-test {
-	useJUnitPlatform()
-}
-```
+Click [here](https://code.visualstudio.com/
+) to get started.
 
-## Configuring the Test task
+### 2. Pulling down the project
 
-Optionally, you can configure the `test` task as follows.
+1. Open up your command prompt or terminal and navigate to a folder you wanna keep this project at. 
+    - ex: `cd MyCodingFolder`
 
-```groovy
-test {
-	useJUnitPlatform {
-		// includeEngines("junit-jupiter", "junit-vintage")
-		// excludeEngines("custom-engine")
+2. Clone this project using the command `git clone https://github.com/insane-z41n/Java-Tutorials.git`
 
-		// includeTags("fast")
-		excludeTags("slow")
-	}
-	testLogging {
-		events("passed", "skipped", "failed")
-	}
-}
-```
+3. Open up visual studio code and Open up the project you just cloned __Java-Tutorials__.
 
-By default all engines and tags are included in the test plan.
+4. Move on to step 3 on Installing Java
 
-If you supply a _Test Engine ID_ via `includeEngines(...)` or `excludeEngines(...)`,
-Gradle will only run tests for the desired test engines.
+### 3. Installing JAVA 
 
-If you supply a _tag_ via `includeTags(...)`, Gradle will only
-run tests that are _tagged_ accordingly (e.g., via the `@Tag` annotation for
-JUnit Jupiter based tests). Similarly, if you supply a _tag_ via `excludeTags(...)`,
-Gradle will not run tests that are _tagged_ accordingly.
+1. Check if you have JAVA and it's version 
+    - Open your terminal or command prompt and type in the following command 
 
-## Configuring Test Engines
+        > java -version 
 
-In order to have Gradle's `test` task run any tests at all, a `TestEngine`
-implementation must be on the classpath.
+        _If you see the following message `java is not recognized` you need to install JAVA on step 2 or if your java version is lower than JAVA 8._
 
-To configure support for JUnit Jupiter based tests, configure a `testImplementation`
-dependency on the `junit-jupiter` artifact. That will cause `testImplementation`
-dependency on the JUnit Jupiter API and a `testRuntimeOnly` dependency on the JUnit
-Jupiter TestEngine.
+2. Click [here](https://code.visualstudio.com/docs/java/java-tutorial) and install the coding pack for your machine. 
 
-```groovy
-dependencies {
-	testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
-}
-```
+3. Open the __Coding Pack for Java__ from your downloads and run through the steps to complete the installatio
 
-Gradle can also run JUnit 3 and JUnit 4 based tests as long as you
-configure a `testImplementation` dependency on JUnit 4 and a `testRuntimeOnly` dependency
-on the JUnit Vintage TestEngine implementation similar to the following.
+4. You should be able to run the HelloWorld.java file located at _/src/main/java/com/tutorials/HelloWorld/_. [Click Here to navigate to the file](./src/main/java/com/tutorials/HelloWorld/HelloWorld.java)
+    - Press the play button in the top right corner or the __Run__ option above the `public static void main` method
 
-```groovy
-dependencies {
-	testImplementation("junit:junit:4.13.2")
-	testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.11.0")
-}
-```
 
-## Executing Tests on the JUnit Platform
 
-Once the JUnit Platform Gradle plugin has been applied and configured, you can use the
-standard `test` task as usual.
 
-Invoking `gradlew clean test` from the command line will execute all tests within the
-project. This will result in output similar to the following:
 
-```
-> Task :test
 
-com.example.project.SecondTest > mySecondTest() SKIPPED
 
-com.example.project.OtherTests > testThisThing() PASSED
 
-com.example.project.OtherTests > testThisOtherThing() PASSED
 
-com.example.project.FirstTest > myFirstTest(TestInfo) PASSED
 
-com.example.project.JUnit4Test > test PASSED
 
-BUILD SUCCESSFUL in 2s
-4 actionable tasks: 3 executed, 1 up-to-date
-```
+    
 
-If you comment out the `@Disabled` annotation on `SecondTest#mySecondTest()`, you will
-then see the build fail with output similar to the following:
-
-```
-> Task :test FAILED
-
-com.example.project.OtherTests > testThisThing() PASSED
-
-com.example.project.OtherTests > testThisOtherThing() PASSED
-
-com.example.project.FirstTest > myFirstTest(TestInfo) PASSED
-
-com.example.project.SecondTest > mySecondTest() FAILED
-    org.opentest4j.AssertionFailedError at SecondTest.java:24
-
-com.example.project.JUnit4Test > test PASSED
-
-5 tests completed, 1 failed
-
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Execution failed for task ':test'.
-> There were failing tests. See the report at: file:///Users/junit-team/junit5-samples/junit5-migration-gradle/build/reports/tests/test/index.html
-
-* Try:
-Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
-
-* Get more help at https://help.gradle.org
-
-BUILD FAILED in 2s
-4 actionable tasks: 3 executed, 1 up-to-date
-```
-
-### Test Reports
-
-Gradle writes XML test reports to `build/test-results/test` and HTML test reports to `build/reports/tests/test`.
